@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\homecontroller;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +15,12 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('category', [CategoryController::class, 'index'])->name('category');
+
+// Route::get('/index', [CategoryController::class, 'index'])->name('categories');
+Route::get('/', [homecontroller::class ,'index'])->name('home.index');
+Route::get('/all', [homecontroller::class ,'all'])->name('home.all');
+Route::resource('/category', CategoryController::class);
+Route::get('/serch', [CategoryController::class, 'search'])->name('category.search');
+Route::resource('/products', ProductsController::class);
+Route::get('/search', [ProductsController::class, 'search'])->name('products.search');

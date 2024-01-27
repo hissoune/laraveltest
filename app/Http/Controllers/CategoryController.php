@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\Categoryrequest;
+
 
 class CategoryController extends Controller
 {
@@ -12,9 +15,32 @@ class CategoryController extends Controller
      */
     public function index()
     {
-      $categories=  category::paginate(5);
+      $categories=  category::all();
         
-        return view('category.indexcategory' , compact('categories'));
+        return view('category.index' , compact('categories'));
+    }
+
+    public function search (Request $request){
+       
+       
+            $categories = Category::all(); 
+    
+            if ($request->has('category')) {
+                $selectedCategoryId = $request->input('category');
+                
+                $selectedCategory = Category::find($selectedCategoryId);
+    
+                if ($selectedCategory) {
+                    $categoryItems = $selectedCategory;
+                } else {
+                    $categoryItems=null;
+                    return redirect()->route('category.index');
+                    exit();
+                }
+            }
+    
+            return view('category.index', compact('categories', 'categoryItems'));
+             
     }
 
     /**
@@ -22,15 +48,18 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+   return view('category.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Categoryrequest $request)
     {
-        //
+        $cat = new category();
+        $cat->name = $request->input('catname');
+        $cat->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -38,7 +67,11 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        //
+        $name=$category->id;
+       
+        $cat = category::find($name);
+        // $cat = Category::where('name', $name)->first();
+        return view('category.show', compact('cat'));
     }
 
     /**
@@ -46,15 +79,20 @@ class CategoryController extends Controller
      */
     public function edit(category $category)
     {
-        //
+        return view('category.edit',compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, category $category)
+    public function update(Categoryrequest $request, category $category)
     {
-        //
+        $cat = category::find($category->id);
+        
+
+        $cat->name = $request->input('catname');
+        $cat->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -62,6 +100,9 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        $cat = category::find($category->id);
+        $cat->delete();
+        return redirect()->route('category.index');
+    
     }
 }

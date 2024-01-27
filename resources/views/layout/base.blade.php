@@ -9,6 +9,16 @@
 </head>
 <body>
     @include('layout.navbar')
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="m-4"> @yield('main')</div>
    
 </body>
