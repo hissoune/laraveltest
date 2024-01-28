@@ -7,6 +7,7 @@
     active
 @endsection
 @section('main')
+
 <form action="{{ route('products.search') }}" method="get">
   
     <select name="product" class="form-select my-5" onchange="this.form.submit()">
@@ -58,6 +59,9 @@
 </table>
             
         @else
+        {{-- @livewire('counter') --}}
+
+          
         @foreach ($products as $product )
         <tr>
             <td>{{$product->id}}</td>
