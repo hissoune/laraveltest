@@ -35,7 +35,7 @@ class CategoryController extends Controller
                 } else {
                     $categoryItems=null;
                     return redirect()->route('category.index');
-                    exit();
+                  
                 }
             }
     

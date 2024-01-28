@@ -33,13 +33,12 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/index', [CategoryController::class, 'index'])->name('categories');
-Route::get('/', [homecontroller::class ,'index'])->name('home.index');
-Route::get('/all', [homecontroller::class ,'all'])->name('home.all');
-Route::resource('/category', CategoryController::class);
-Route::get('/serch', [CategoryController::class, 'search'])->name('category.search');
-Route::resource('/products', ProductsController::class);
-Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
-Route::get('/counter', Counter::class,'renders')->name('counter');
+// Route::get('/index', [CategoryController::class, 'index'])->name('categories');
+// Route::get('/', [homecontroller::class ,'index'])->name('home.index');
+// Route::get('/all', [homecontroller::class ,'all'])->name('home.all');
+// Route::resource('/category', CategoryController::class);
+// Route::get('/serch', [CategoryController::class, 'search'])->name('category.search');
+// Route::resource('/products', ProductsController::class);
+// Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
 
 require __DIR__.'/auth.php';
